@@ -35,17 +35,13 @@ public class mysql_veiksmai extends Abstraktus {
     {
         
     }        
-    public void prisijungimas_db()
+    public void prisijungimas_db() throws SQLException
     {
-         try {
-             Class.forName("com.mysql.jdbc.Driver");
+       
+            
          connection= DriverManager.getConnection(url, username, password);
        
-                } catch (SQLException ex) {
-                    Logger.getLogger(ZoologijosSodas.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-            Logger.getLogger(mysql_veiksmai.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
         System.out.println("Database connected!");
        
     }
