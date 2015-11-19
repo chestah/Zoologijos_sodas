@@ -10,5 +10,7 @@ package zoologijos.sodas;
  * @author k.miknys
  */
 public abstract class Abstraktus {
-    abstract void piesti();
+ 
+    abstract Boolean trinti_irasa();
+    abstract void redaguoti_irasa(); 
 }

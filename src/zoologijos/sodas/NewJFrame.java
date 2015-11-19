@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import zoologijos.sodas.gyvunu_pridejimo_lango_veiksmai;
+import zoologijos.sodas.irankiu_veiksmai;
 import zoologijos.sodas.mysql_veiksmai;
 
 /**
@@ -15,11 +17,16 @@ import zoologijos.sodas.mysql_veiksmai;
 public class NewJFrame extends javax.swing.JFrame {
     
     mysql_veiksmai DB = new mysql_veiksmai();
+    irankiu_veiksmai irankiai = new irankiu_veiksmai();
+    gyvunu_pridejimo_lango_veiksmai gyv_add=new gyvunu_pridejimo_lango_veiksmai();
     List<String> gyv_vardai=new ArrayList<String>();
     DefaultTableModel table_model; 
-    public NewJFrame() {
+    public NewJFrame() throws SQLException {
         initComponents();
+        DB.prisijungimas_db();
+        
         table_model=(DefaultTableModel)table1.getModel(); // 
+        DB.pridejimo_lango_uzpildis(table_model);
     }
 
 
@@ -53,6 +60,7 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
+        table1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         table1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -69,7 +77,6 @@ public class NewJFrame extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        table1.setCellSelectionEnabled(true);
         table1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 table1MouseClicked(evt);
@@ -110,7 +117,7 @@ public class NewJFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(463, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -134,36 +141,38 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addComponent(trinti)
                         .addGap(182, 182, 182))))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(462, 462, 462)
                 .addComponent(pridėti)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(402, 402, 402))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textbox_rus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textbox_vard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textbox_narv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(pridėti)
-                            .addComponent(redaguoti)
-                            .addComponent(trinti))))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textbox_rus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textbox_vard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textbox_narv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pridėti)
+                    .addComponent(redaguoti)
+                    .addComponent(trinti))
                 .addGap(29, 29, 29)
                 .addComponent(mygtukas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(214, 214, 214))
         );
@@ -204,13 +213,22 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_pridėtiActionPerformed
 
     private void redaguotiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redaguotiActionPerformed
-            
+       
+       System.out.print(table1.getSelectedRow()+1);
+        try {
+            irankiai.table_eilutes_redagavimas(textbox_rus, table_model, table1, 0);
+       irankiai.table_eilutes_redagavimas(textbox_vard, table_model, table1, 1);
+       irankiai.table_eilutes_redagavimas(textbox_narv, table_model, table1, 2);
+            DB.redaguoti_irasa(table1.getSelectedRow()+1, textbox_rus.getText(), textbox_vard.getText(), textbox_narv.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_redaguotiActionPerformed
 
     private void table1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table1MouseClicked
-       textbox_rus.setText(String.valueOf(table_model.getValueAt(table1.getSelectedRow(), 0)));
-       textbox_rus.setText(String.valueOf(table_model.getValueAt(table1.getSelectedRow(), 0)));
-       textbox_rus.setText(String.valueOf(table_model.getValueAt(table1.getSelectedRow(), 0)));
+       irankiai.table_eilutes_gavimas(textbox_rus, table_model, table1,0);
+       irankiai.table_eilutes_gavimas(textbox_vard, table_model, table1,1);
+       irankiai.table_eilutes_gavimas(textbox_narv, table_model, table1,2);
     }//GEN-LAST:event_table1MouseClicked
     
     public static void main(String args[]) {
@@ -235,7 +253,11 @@ public class NewJFrame extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewJFrame().setVisible(true);
+                try {
+                    new NewJFrame().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
