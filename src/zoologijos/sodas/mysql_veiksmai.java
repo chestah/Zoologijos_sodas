@@ -60,14 +60,14 @@ public class mysql_veiksmai extends Abstraktus {
     public List rusies(String rusis_kint){
         
         try {
-            rusis_kint="ŠUO";
+            rusis_kint="Šuo";
             st = connection.createStatement();
           
            rs = st.executeQuery("SELECT * FROM gyvunai where rusis = '"+rusis_kint+"' ORDER BY ID");
             
-            while(rs.next()) {//get first result
+            while(rs.next()) {
                 
-                list.add(rs.getString("vardas"));//coloumn 1
+                list.add(rs.getString("vardas"));
             }
            
         } catch (SQLException ex) {
