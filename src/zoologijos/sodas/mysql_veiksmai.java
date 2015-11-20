@@ -56,8 +56,8 @@ public class mysql_veiksmai  {
     }
     public DefaultTableModel pridejimo_lango_uzpildis(DefaultTableModel table){
         try {
-            String rusis_kint;
-            rusis_kint="Šuo";
+            gyvunu_identifikatorius.clear();
+            table.setRowCount(0);
             
             st = connection.createStatement();
 
@@ -66,20 +66,18 @@ public class mysql_veiksmai  {
             
             while(rs.next()) {
                 gyvunu_identifikatorius.add(rs.getInt("ID")); //Eina table1 visvien pagal "order by id"
+                
                 table.insertRow(table.getRowCount(), new String[]{rs.getString("rusis"),rs.getString("vardas"),rs.getString("narvas")});
                 //list.add(rs.getString("vardas"));
             }
-           for(Integer s:gyvunu_identifikatorius)
-           {
-              
-           }
+        
         } catch (SQLException ex) {
             Logger.getLogger(mysql_veiksmai.class.getName()).log(Level.SEVERE, null, ex);
         }
         // return list;
         return table;
     }
-    public List rusies(String rusis_kint){
+   /* public List rusies(String rusis_kint){
         
         try {
             rusis_kint="Šuo";
@@ -96,11 +94,23 @@ public class mysql_veiksmai  {
             Logger.getLogger(mysql_veiksmai.class.getName()).log(Level.SEVERE, null, ex);
         }
          return list;
-    }
+    }*/
    public void redaguoti_irasa(int ID,String rusis,String vardas,String narvas) throws SQLException {
            st = connection.createStatement();
-          System.out.println(rusis+" "+ vardas+" "+ narvas);
           st.executeUpdate("UPDATE gyvunai SET rusis ='"+rusis+"', vardas ='"+vardas+"', narvas ='"+narvas+"' WHERE ID ="+ID);
     }
-  
+    public void pridėti_irasa(String rusis,String vardas,String narvas,DefaultTableModel table) throws SQLException {
+           st = connection.createStatement();
+          st.executeUpdate("INSERT INTO gyvunai(rusis, vardas, narvas) VALUES ('"+rusis+"','"+vardas+"','"+narvas+"')");
+          pridejimo_lango_uzpildis(table);
+    }
+    public void trinti_irasa(int ID,DefaultTableModel table) throws SQLException {
+         System.out.println("\n");
+        System.out.println("Gaunamas ID= "+ID);
+        System.out.println("Saraso elementas pagal ta ID= "+gyvunu_identifikatorius.get(ID));
+           st = connection.createStatement();
+          
+          st.executeUpdate("DELETE FROM gyvunai WHERE ID='"+gyvunu_identifikatorius.get(ID)+"'");
+          pridejimo_lango_uzpildis(table);
+    }
 }

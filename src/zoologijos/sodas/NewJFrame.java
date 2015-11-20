@@ -99,6 +99,11 @@ public class NewJFrame extends javax.swing.JFrame {
         });
 
         trinti.setText("Trinti");
+        trinti.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                trintiActionPerformed(evt);
+            }
+        });
 
         textbox_rus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,8 +190,8 @@ public class NewJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mygtukasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mygtukasActionPerformed
-        try {
-            DB.prisijungimas_db();
+        /*try {
+           DB.prisijungimas_db();
             gyv_vardai=DB.rusies("Katė");
              for(String gyv: gyv_vardai){
                 System.out.println(gyv);
@@ -194,7 +199,7 @@ public class NewJFrame extends javax.swing.JFrame {
             DB.atsijungimas();
         } catch (SQLException ex) {
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
            
     }//GEN-LAST:event_mygtukasActionPerformed
 
@@ -210,6 +215,11 @@ public class NewJFrame extends javax.swing.JFrame {
         }
        
         table_model.insertRow(table_model.getRowCount(), new Object[]{textbox_rus.getText(), textbox_vard.getText(),textbox_narv.getText()});
+        try {
+            DB.pridėti_irasa(textbox_rus.getText(), textbox_vard.getText(), textbox_narv.getText(),table_model);
+        } catch (SQLException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_pridėtiActionPerformed
 
     private void redaguotiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_redaguotiActionPerformed
@@ -230,6 +240,17 @@ public class NewJFrame extends javax.swing.JFrame {
        irankiai.table_eilutes_gavimas(textbox_vard, table_model, table1,1);
        irankiai.table_eilutes_gavimas(textbox_narv, table_model, table1,2);
     }//GEN-LAST:event_table1MouseClicked
+
+    private void trintiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trintiActionPerformed
+        
+        try {
+            DB.trinti_irasa(table1.getSelectedRow(),table_model);
+            table_model.removeRow(table1.getSelectedRow());
+        } catch (SQLException ex) {
+            Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_trintiActionPerformed
     
     public static void main(String args[]) {
        
