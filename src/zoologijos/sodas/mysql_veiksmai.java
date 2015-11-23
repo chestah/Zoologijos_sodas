@@ -36,11 +36,7 @@ public class mysql_veiksmai  {
       
     public void prisijungimas_db() throws SQLException
     {
-        connection= DriverManager.getConnection(url, username, password);
-       
-        
-        System.out.println("Database connected!");
-       
+        connection= DriverManager.getConnection(url, username, password);       
     }
     public void atsijungimas() {
         if (connection != null) {
