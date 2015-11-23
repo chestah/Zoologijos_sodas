@@ -9,7 +9,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author k.miknys
  */
-public class irankiu_veiksmai extends mysql_veiksmai {
+public class irankiu_veiksmai{
     public JTextField table_eilutes_gavimas(JTextField laukas, DefaultTableModel model, JTable table, Integer stulp)
     {
         laukas.setText(String.valueOf(model.getValueAt(table.getSelectedRow(), stulp)));

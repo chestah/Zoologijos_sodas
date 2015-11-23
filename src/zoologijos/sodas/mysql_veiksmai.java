@@ -23,10 +23,10 @@ import javax.swing.table.DefaultTableModel;
  * @author k.miknys
  */
 public class mysql_veiksmai  {
-    Connection connection=null;
-    Statement st = null;
+   public Connection connection=null;
+   public Statement st = null;
     PreparedStatement pstmt=null;
-    ResultSet rs = null;
+   public ResultSet rs = null;
     List<String> list = new ArrayList<String>();
     List<Integer> gyvunu_identifikatorius = new ArrayList<Integer>();
     String url = "jdbc:mysql://localhost:3306/zoologijos";
@@ -54,7 +54,7 @@ public class mysql_veiksmai  {
             }
         }
     }
-    public DefaultTableModel pridejimo_lango_uzpildis(DefaultTableModel table){
+   public DefaultTableModel pridejimo_lango_uzpildis(DefaultTableModel table){
         try {
             gyvunu_identifikatorius.clear();
             table.setRowCount(0);
@@ -67,7 +67,7 @@ public class mysql_veiksmai  {
             while(rs.next()) {
                 gyvunu_identifikatorius.add(rs.getInt("ID")); //Eina table1 visvien pagal "order by id"
                 
-                table.insertRow(table.getRowCount(), new String[]{rs.getString("rusis"),rs.getString("vardas"),rs.getString("narvas")});
+                table.insertRow(table.getRowCount(), new String[]{rs.getString("rusis"),rs.getString("vardas"),rs.getString("narvas"),rs.getString("Gimimo_data")});
                 //list.add(rs.getString("vardas"));
             }
         
@@ -77,7 +77,29 @@ public class mysql_veiksmai  {
         // return list;
         return table;
     }
-   /* public List rusies(String rusis_kint){
+   
+  
+  
+}
+   /* public void trinti_irasa(int ID,DefaultTableModel table) throws SQLException {
+         System.out.println("\n");
+        System.out.println("Gaunamas ID= "+ID);
+        System.out.println("Saraso elementas pagal ta ID= "+gyvunu_identifikatorius.get(ID));
+           st = connection.createStatement();
+          
+          st.executeUpdate("DELETE FROM gyvunai WHERE ID='"+gyvunu_identifikatorius.get(ID)+"'");
+          pridejimo_lango_uzpildis(table);
+    }
+      public void pridėti_irasa(String rusis,String vardas,String narvas,DefaultTableModel table) throws SQLException {
+           st = connection.createStatement();
+          st.executeUpdate("INSERT INTO gyvunai(rusis, vardas, narvas) VALUES ('"+rusis+"','"+vardas+"','"+narvas+"')");
+          pridejimo_lango_uzpildis(table);
+    }
+     public void redaguoti_irasa(int ID,String rusis,String vardas,String narvas,String data) throws SQLException {
+           st = connection.createStatement();
+          st.executeUpdate("UPDATE gyvunai SET rusis ='"+rusis+"', vardas ='"+vardas+"', narvas ='"+narvas+"', Gimimo_data ='"+data+"' WHERE ID ="+gyvunu_identifikatorius.get(ID));
+    }
+ public List rusies(String rusis_kint){
         
         try {
             rusis_kint="Šuo";
@@ -95,22 +117,3 @@ public class mysql_veiksmai  {
         }
          return list;
     }*/
-   public void redaguoti_irasa(int ID,String rusis,String vardas,String narvas) throws SQLException {
-           st = connection.createStatement();
-          st.executeUpdate("UPDATE gyvunai SET rusis ='"+rusis+"', vardas ='"+vardas+"', narvas ='"+narvas+"' WHERE ID ="+ID);
-    }
-    public void pridėti_irasa(String rusis,String vardas,String narvas,DefaultTableModel table) throws SQLException {
-           st = connection.createStatement();
-          st.executeUpdate("INSERT INTO gyvunai(rusis, vardas, narvas) VALUES ('"+rusis+"','"+vardas+"','"+narvas+"')");
-          pridejimo_lango_uzpildis(table);
-    }
-    public void trinti_irasa(int ID,DefaultTableModel table) throws SQLException {
-         System.out.println("\n");
-        System.out.println("Gaunamas ID= "+ID);
-        System.out.println("Saraso elementas pagal ta ID= "+gyvunu_identifikatorius.get(ID));
-           st = connection.createStatement();
-          
-          st.executeUpdate("DELETE FROM gyvunai WHERE ID='"+gyvunu_identifikatorius.get(ID)+"'");
-          pridejimo_lango_uzpildis(table);
-    }
-}
