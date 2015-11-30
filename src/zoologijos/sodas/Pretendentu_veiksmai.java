@@ -21,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Kazimieras
  */
-public class Pretendentu_veiksmai {
+public class Pretendentu_veiksmai extends Mysql_veiksmai{
  public  List<Integer> pretendentu_identifikatorius = new ArrayList<Integer>();
 
     Mysql_veiksmai DB=new Mysql_veiksmai();
@@ -120,5 +120,7 @@ public class Pretendentu_veiksmai {
             
          }
     }
-    
+      public String toString() {
+        return "Pretendentu_veiksmai{" + "Pretendentu identfikatorius=" + pretendentu_identifikatorius.size()+  '}';
+    }
 }

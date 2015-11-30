@@ -109,5 +109,7 @@ public List<Integer> darbuotoju_identifikatorius = new ArrayList<Integer>();
              Logger.getLogger(Gyvunu_pridejimo_lango_veiksmai.class.getName()).log(Level.SEVERE, null, ex);
          }
     }
-    
+       public String toString() {
+        return "Darbuotoju_veiksmai{" + "Pretendentu identfikatorius=" + darbuotoju_identifikatorius.size() +  '}';
+    }
 }

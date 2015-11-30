@@ -37,6 +37,8 @@ Mysql_veiksmai DB = new Mysql_veiksmai();
         table_model=(DefaultTableModel)table1.getModel(); // 
        // DB.pridejimo_lango_uzpildis(table_model);
         gyv_add.pridejimo_lango_uzpildis(table_model, DB.st, DB.rs, DB.connection);
+        System.err.println(""+DB);
+        System.err.println(""+gyv_add);
         }
         catch(SQLException ex){}
         

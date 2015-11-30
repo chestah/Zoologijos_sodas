@@ -36,7 +36,9 @@ public class Darbuotojai extends javax.swing.JFrame {
         
         darb_veiks_ne.darbuotoju_lango_uzpildis(table_model_darb, DB.st, DB.rs, DB.connection);
        // DB.pridejimo_lango_uzpildis(table_model_Darb);
-       
+       System.err.println(""+DB);
+        System.err.println(""+pretend_veiks);
+        System.err.println(""+darb_veiks_ne);
         }
         catch(SQLException ex){}
         

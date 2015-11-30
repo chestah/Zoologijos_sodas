@@ -21,10 +21,13 @@ public class Pretendentai extends javax.swing.JFrame {
         table_model=(DefaultTableModel)pretend_table.getModel(); // 
          try{
         DB.prisijungimas_db();
-        
+        DB.toString();
+       
      
        // DB.pridejimo_lango_uzpildis(table_model);
         pretend_veiks.pretendentu_lango_uzpildis(table_model,DB.st, DB.rs, DB.connection);
+         System.err.println(""+DB);
+        System.err.println(""+pretend_veiks);
         }
         catch(SQLException ex){}
         
@@ -88,11 +91,15 @@ public class Pretendentai extends javax.swing.JFrame {
         jScrollPane1.setViewportView(pretend_table);
 
         textarea_motyv.setColumns(20);
+        textarea_motyv.setLineWrap(true);
         textarea_motyv.setRows(5);
+        textarea_motyv.setWrapStyleWord(true);
         jScrollPane2.setViewportView(textarea_motyv);
 
         textare_issilavinimas.setColumns(20);
+        textare_issilavinimas.setLineWrap(true);
         textare_issilavinimas.setRows(5);
+        textare_issilavinimas.setWrapStyleWord(true);
         jScrollPane3.setViewportView(textare_issilavinimas);
 
         jLabel1.setText("Motyvacinis");
