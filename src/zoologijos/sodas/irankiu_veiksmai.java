@@ -15,6 +15,7 @@ public class irankiu_veiksmai{
         laukas.setText(String.valueOf(model.getValueAt(table.getSelectedRow(), stulp)));
         return laukas;
     }
+  
     public DefaultTableModel table_eilutes_redagavimas(JTextField laukas, DefaultTableModel model, JTable table, Integer stulp)
     {
         model.setValueAt(laukas.getText(), table.getSelectedRow(), stulp);
